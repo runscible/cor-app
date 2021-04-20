@@ -1,6 +1,9 @@
+import * as styles from '../../styles/Home.module.css';
 import { Select, Divider, Typography, List, Card } from 'antd';
 import { atom, selector, useRecoilValue, useRecoilState } from 'recoil';
 import { tasksState } from '../../state';
+
+
 
 const { Option } = Select;
 const listStateFilter = atom({
@@ -34,6 +37,18 @@ const filteredState = selector({
 })
 
 
+const FormatTitle = ({ data }) => {
+  const { title, status, priority } = data;
+  return (
+    <>
+      <div className={styles.statusesContainer}>
+        <p>priority: {priority}</p>
+        <p>estatus {status}</p>
+      </div>
+      <h3>title: {title}</h3>
+    </>
+  )
+}
 export default () => {
   const [ filter, setFilter ] = useRecoilState(listStateFilter);
   const updateFilter = ev => {
@@ -54,22 +69,22 @@ export default () => {
                   placeholder='estado'>
             <Option value='statusTodo'>todo</Option>
             <Option value='statusInProgress'>in progress</Option>
-            <Option value='StatusDone'>done</Option>
+            <Option value='statusDone'>done</Option>
           </Select>
       </Divider>
       <List
-                header={<div>list of tasks </div>}
-                bordered
-                dataSource={tasks}
-                renderItem={item => (
-                  <List.Item>
-                    <Card 
-                      title={item.title}
-                      style={{ width: 300 }}>
-                      description: {item.content}
-                    </Card>
-                  </List.Item>
-                )}
+          header={<div>list of tasks </div>}
+          bordered
+          dataSource={tasks}
+          renderItem={item => (
+            <List.Item>
+              <Card 
+                title={<FormatTitle data={item} />}
+                style={{ width: 300 }}>
+                description: {item.content}
+              </Card>
+            </List.Item>
+          )}
        />
     </>
   )

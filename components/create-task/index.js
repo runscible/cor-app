@@ -38,7 +38,7 @@ export default () => {
   };
   return (
     <>  
-      <Divider style={{ width:300 }}>
+      <Divider style={{ width:500 }}>
       <Typography>crear tarea</Typography>
         <div className={styles.containerHorizontal}>
             <Input placeholder='titulo' onChange={onChangeTitle} />
